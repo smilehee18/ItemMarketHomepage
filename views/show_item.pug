@@ -1,0 +1,65 @@
+extends ./layout.pug
+block content
+    h2 
+      i(class="fas fa-star") ---- Our Items ----
+    form(action='search/' method='POST')
+      h5 Select One of the Fields 
+      select#field(name='sel')
+        option(value='username') UserName 
+        option(value='itemname') itemName 
+        input(type='text' name='text' size='20')
+      button(type='submit' name='submit') Search
+    hr
+    form(action="/get-data" method="POST")
+      button(type='submit' name='all') Show All of the Items
+
+      table(border="1")
+        tr
+          th NO.
+          th OWN ID 
+          th Name
+          th Item 
+          th Category 
+          th Price 
+          th Date
+        each item, index in items
+          tr
+            td #{index+1}
+            td 
+              a(href='/edit?id='+ item._id) #{item._id} 
+            td #{item.name}
+            td #{item.item}
+            td #{item.category}
+            td #{item.price}
+            td #{item.date} 
+    hr
+    h3 Insert Your Item!
+    form(action="/insert" method="post")
+      div(class="input")
+        label(for="name") UserName
+        input(type="text" id="name" name="name" value=name)
+      div(class="input")
+        label(for="Item") Item Name
+        input(type="text" id="item" name="item")
+      div(class="input")
+        label(for="category") Category
+        input(type="text" id="category" name="category")
+      div(class="input")
+        label(for="price") Price
+        input(type="text" id="price" name="price")
+      div
+        button(type="submit") Insert
+
+    hr
+    h3 Delete items Here!
+    form(action="/delete" method="post")
+      div(class="input")
+        label(for="id" ) 
+        h3 Input Item's own ID
+        input(type="text" id="id" name="id")
+      button(type="submit") DELETE
+      h5 When you copy & paste id, Please careful the blank space!!!
+    
+    hr
+    form(action="/dashboard" method="POST")
+        button(type='submit' class="btn btn-outline-success") Go to the dashBoard
