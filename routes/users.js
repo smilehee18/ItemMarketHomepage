@@ -15,25 +15,6 @@ var myid;
 var myphone;
 var mypass;
 
-//name page
-router.get('/name', (req,res)=>
-{
-  User.find({_id:myid}, (err, output) => {
-    console.log(output)
-    if(err)
-        {
-           res.status(500).send({error : 'database failure~'});
-           return;
-        }
-        res.render('edit_profile', {newuser:output, myname:myname, myid:myid, myphone:myphone, mypass:mypass})
-    })
-})
-
-//here
-router.post('/dashboard', (req, res) => {
-    res.render('dashboard', {name:req.body.name})
-})
-
 // Login handle
 router.post('/login', (req, res, next) => {
     myname = req.body.name;
@@ -75,6 +56,25 @@ router.post('/name', (req,res)=>
         }
         res.redirect('name')
     })
+})
+
+//name page
+router.get('/name', (req,res)=>
+{
+  User.find({_id:myid}, (err, output) => {
+    console.log(output)
+    if(err)
+        {
+           res.status(500).send({error : 'database failure~'});
+           return;
+        }
+        res.render('edit_profile', {newuser:output, myname:myname, myid:myid, myphone:myphone, mypass:mypass})
+    })
+})
+
+//dashboard
+router.post('/dashboard', (req, res) => {
+    res.render('dashboard', {name:req.body.name})
 })
 
 // Register page
